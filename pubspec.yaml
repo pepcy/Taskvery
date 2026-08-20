@@ -1,0 +1,19 @@
+name: task_manager
+version: 1.0.0+1
+description: A local-first GitHub-inspired task manager built with Flutter.
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  shared_preferences: ^2.5.3
+  flutter_local_notifications: ^19.4.0
+  intl: ^0.20.2
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
