@@ -1,0 +1,10 @@
+import '../models/models.dart';
+Workspace demoWorkspace(){
+ final labels=[Label(id:'ui',name:'UI',color:'#A371F7'),Label(id:'enh',name:'enhancement',color:'#2DA44E'),Label(id:'bug',name:'bug',color:'#F85149'),Label(id:'docs',name:'documentation',color:'#58A6FF')];
+ final ms=[Milestone(id:'v1',title:'v1.0 Foundation',description:'Core workspace and responsive UI',dueDate:DateTime.now().add(const Duration(days:30))),Milestone(id:'v11',title:'v1.1 Polish',description:'Notifications and import/export',dueDate:DateTime.now().add(const Duration(days:60)))];
+ final projects=[Project(id:'p1',name:'Mobile Dashboard',description:'GitHub-like workspace shell',color:'#2DA44E',milestoneId:'v1'),Project(id:'p2',name:'Task Intelligence',description:'Filters, labels and milestones',color:'#A371F7',milestoneId:'v11'),Project(id:'p3',name:'Polish & QA',description:'Responsive testing and accessibility',color:'#58A6FF',milestoneId:'v11')];
+ final titles=['Implement dashboard','Create responsive sidebar','Build task detail','Add filters','Create project board','Design milestone cards','Add labels management','Export workspace JSON','Import workspace JSON','Polish mobile layout','Add local reminders','Write smoke tests'];
+ final tasks=<Task>[]; for(var i=0;i<titles.length;i++){ final st=i%3==0?TaskStatus.inProgress:(i%3==1?TaskStatus.todo:TaskStatus.done); final pr=i%5==0?TaskPriority.high:(i%2==0?TaskPriority.medium:TaskPriority.low); tasks.add(Task(id:'${142+i}',title:titles[i],description:'Create a clean, local-first experience with GitHub-inspired components.',projectId:projects[i%3].id,milestoneId:ms[i%2].id,status:st,priority:pr,labelIds:[labels[i%labels.length].id],dueDate:DateTime.now().add(Duration(days:i-3)),subtasks:[Subtask(id:'s${i}a',title:'UI structure',done:i%2==0),Subtask(id:'s${i}b',title:'Responsive check',done:st==TaskStatus.done)])); }
+ for(final p in projects){p.taskIds=tasks.where((t)=>t.projectId==p.id).map((t)=>t.id).toList();}
+ return Workspace(name:'Personal workspace',description:'A focused local task manager for planning, shipping and reviewing work.',tasks:tasks,projects:projects,milestones:ms,labels:labels);
+}
